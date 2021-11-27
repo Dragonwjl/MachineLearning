@@ -106,18 +106,18 @@ public class MainFrame extends JFrame{
         this.jbTrain.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 java.util.List<String> fileList = ImageUtil.getInstance().getImageList();
-                
+
                 if (fileList.size() < 500) {
                     JOptionPane.showMessageDialog(null, "You should create at least 500 train jpg. Try to use \"tell num\".");
                 } else {
                     java.util.List<ImageModel> modelList = ImageUtil.getInstance().getImageModel(fileList);
-                    
+
                     network.SGD(modelList, 140, 0.1);
                     try {
-						SerializeUtils.serialize(network.getBiasMatrixList(), "datas/biasMatrix.md");
-						SerializeUtils.serialize(network.getWeightMatrixList(), "datas/weightMatrix.md");
+						SerializeUtils.serialize(network.getBiasMatrixList(), "ML/datas/biasMatrix.md");
+						SerializeUtils.serialize(network.getWeightMatrixList(), "ML/datas/weightMatrix.md");
 					} catch (IOException e1) {
-						
+
 						e1.printStackTrace();
 					}
                 }
@@ -134,13 +134,13 @@ public class MainFrame extends JFrame{
             	ArrayList<MyDenseDoubleMatrix2D> weightMatrixList = null;
             	ArrayList<MyDenseDoubleMatrix2D> biasMatrixList = null;
             	try {
-            		biasMatrixList = (ArrayList<MyDenseDoubleMatrix2D>) SerializeUtils.deserialization("datas/biasMatrix.md");
-            		weightMatrixList = (ArrayList<MyDenseDoubleMatrix2D>) SerializeUtils.deserialization("datas/weightMatrix.md");
+            		biasMatrixList = (ArrayList<MyDenseDoubleMatrix2D>) SerializeUtils.deserialization("ML/datas/biasMatrix.md");
+            		weightMatrixList = (ArrayList<MyDenseDoubleMatrix2D>) SerializeUtils.deserialization("ML/datas/weightMatrix.md");
 				} catch (ClassNotFoundException | IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-            	
+
             	if (weightMatrixList != null && biasMatrixList != null) {
             		network.setBiasMatrixList(biasMatrixList);
             		network.setWeightMatrixList(weightMatrixList);
@@ -151,11 +151,11 @@ public class MainFrame extends JFrame{
                     }else{
                         JOptionPane.showMessageDialog(null,"I guess this number is:"+digit);
                     }
-                
+
             	}else if(!network.isTrain()){
                     JOptionPane.showMessageDialog(null,"You should train neural network first");
                 }
-                
+
             }
         });
 
@@ -192,7 +192,7 @@ public class MainFrame extends JFrame{
         int p = 0 ;
         p = (len+40 - (maxCol-minCol+1)*10-20-20)/2;
         if(p<0) p = 0;
-        
+
        int x = minCol*10-20-p ;
        int y = minRow*10-20   ;
        int width = len+40 ;
@@ -200,9 +200,9 @@ public class MainFrame extends JFrame{
     	    x = minCol*10 ;
 	        y = minRow*10 ;
 	        width = len ;
-       } 
+       }
        canvas.setOutLine(x, y, width,width );
-        
+
         return new int[]{x, y, width,width};
     }
 

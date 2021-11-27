@@ -17,50 +17,50 @@ public class DataSet implements IDataSet{
 	private List<Double> labels=new ArrayList<>() ;
 	private List<List<Object>> datasets = new ArrayList<List<Object>>();
 	public DataSet() {
-		
+
 	}
 	/**
-	 * 
+	 *
 	 * @param filename 文件名称
 	 * @param sep 分割符
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public void loadDataFromTxt(String filename, String sep,Integer labelpos) throws IOException {
 		File f = new File(filename) ;
-		BufferedReader reader=null;  
-        String temp=null;  
-        try{  
-                reader=new BufferedReader(new FileReader(f));  
-                while((temp=reader.readLine())!=null){  
+		BufferedReader reader=null;
+        String temp=null;
+        try{
+                reader=new BufferedReader(new FileReader(f));
+                while((temp=reader.readLine())!=null){
                 	String[] str = temp.split(sep);
                 	List<Double> datalist = new ArrayList<Double>();
-                	for(int i = 0 ; i < str.length ;i++) 
+                	for(int i = 0 ; i < str.length ;i++)
                 		if(i == labelpos) this.labels.add(Double.parseDouble(str[i]));
                 		else datalist.add(Double.parseDouble(str[i])) ;
                 	datas.add(datalist) ;
-                	 
+
                 }
-                
+
                 for(int i = 0 ; i < this.datas.size() ;i++) {
                 	List<Object> list = new ArrayList<Object>();
                 	list.add(this.datas.get(i)) ;
                 	list.add(this.labels.get(i)) ;
                 	this.datasets.add(list) ;
                 }
-        }  
-        catch(Exception e){  
-            e.printStackTrace();  
-        }  
-        finally{  
-            if(reader!=null){  
-                try{  
-                    reader.close();  
-                }  
-                catch(Exception e){  
-                    e.printStackTrace();  
-                }  
-            }  
-        }  
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        finally{
+            if(reader!=null){
+                try{
+                    reader.close();
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
 	}
 	@Override
 	public List<List<Double>> getDatas() {
@@ -77,12 +77,12 @@ public class DataSet implements IDataSet{
 		// TODO Auto-generated method stub
 		return this.datasets;
 	}
-	
+
 	public static void main(String args[]) throws IOException {
 		DataSet dataSet = new DataSet() ;
-		dataSet.loadDataFromTxt("datas/house_price.txt", ",",2);
+		dataSet.loadDataFromTxt("ML/datas/house_price.txt", ",",2);
 		System.out.println(dataSet.getSize());
-		
+
 	}
 
 	@Override
